@@ -1,0 +1,7 @@
+streamlit
+pyarrow
+duckdb
+pandas
+numpy
+plotly
+pillow
