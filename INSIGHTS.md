@@ -63,7 +63,7 @@ Across the entire dataset:
   - Potential improvement in perceived **map liveliness**.
   - More balanced region-wise encounter distribution. 
 
-### Why a Level Designer should care
+### Level Designer POV
 Bots can make up a large share of movement data. If they aren’t separated, heatmaps can reflect AI behavior instead of real player choices, leading to layout changes that optimize for bots rather than actual players.
 
 ---
