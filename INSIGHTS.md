@@ -21,6 +21,8 @@ From `scripts/generate_insights.py` (all files, traffic = `Position` + `BotPosit
   - add meaningful loot/objectives
   - add traversal affordances (cover, zipline/shortcut, sightline breaks) to reduce perceived risk
   - tune storm push direction/pacing so optimal rotations aren’t always the same lanes
+  - Run periodic **in-game events** tied to cold regions to temporarily draw players there and diversify traffic patterns
+  - Use **controlled bot presence** in cold regions to create early engagement and reduce perceived emptiness, while ensuring they don’t become low-risk farming zones
 - **Expected metric impact**:
   - **Area utilization** (bins touched) increases
   - **Traffic concentration** (top-5% share) decreases
