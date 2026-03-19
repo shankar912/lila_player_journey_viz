@@ -32,7 +32,7 @@ From `scripts/generate_insights.py` (all files, traffic = `Position` + `BotPosit
   - **Third-party encounter** rate decreases(fewer stacked fights in the same location
 
 **Why this matters for Level Designer**
-Right now, fights and rotations are concentrated in a few lanes, leaving large parts of the map underutilized. Fixing this increases encounter variety, reduces predictability, and makes more of the map worth engaging with
+  Right now, fights and rotations are concentrated in a few lanes, leaving large parts of the map underutilized. Fixing this increases encounter variety, reduces predictability, and makes    more of the map worth engaging with
 
 ---
 
