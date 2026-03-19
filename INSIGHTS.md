@@ -1,8 +1,8 @@
-# Insights (product + level design)
+# Insights 
 
-These insights are intended to be **actionable** for Level Designers. They should be backed by patterns in the telemetry (routes, clusters, event hotspots, timing).
+These insights are intended to be **actionable** for Level Designers. 
 
-> Note: Run `scripts/generate_insights.py` to regenerate the numbers/figures from your local dataset, then paste the outputs below.
+> Note: Run `scripts/generate_insights.py` to regenerate the numbers/figures from local dataset, then paste the outputs below.
 
 ---
 
@@ -27,15 +27,18 @@ From `scripts/generate_insights.py` (all files, traffic = `Position` + `BotPosit
   - **Area utilization** (bins touched) increases
   - **Traffic concentration** (top-5% share) decreases
   - **Time-to-first-contact** may increase slightly (healthier pacing) and **kill distribution** becomes less clustered
+  - **Average travel distance** per player increases slightly
+  - **Mid-game player count** increases (less early clustering leads to more players surviving into later phases)
+  - **Third-party encounter** rate decreases(fewer stacked fights in the same location
 
-### Why a Level Designer should care
-Over-concentrated traffic creates repetitive fights, predictable rotations, and “dead” map real-estate. Fixing this improves variety, replayability, and makes more of the map worth building.
+**Why this matters for Level Designer**
+Right now, fights and rotations are concentrated in a few lanes, leaving large parts of the map underutilized. Fixing this increases encounter variety, reduces predictability, and makes more of the map worth engaging with
 
 ---
 
-## Insight 2 — Bots meaningfully shape the movement picture (default views must separate them)
-### What caught my eye
-It’s easy to misread traffic heatmaps as “player preference” when a substantial fraction is bot navigation.
+## Insight 2 — Bots significantly skew movement patterns (must be separated by default)
+
+It’s easy to misread traffic heatmaps as “player preference” when a substantial fraction is bot navigation.A large portion of movement data comes from bots, which can make heatmaps look like player preference when they’re actually reflecting AI behavior
 
 ### Evidence (pattern / stat)
 Across the entire dataset:
@@ -46,14 +49,21 @@ Across the entire dataset:
 ### Actionable? What to do + what metrics it affects
 - **Action**:
   - default the tool to **separate** human and bot layers (or provide 1-click toggles), so designers can answer “what do humans do?” vs “where do bots patrol?”
-  - use bot-only density to validate AI spawn/patrol design (are bots accidentally funneling humans into the same lanes?)
+  - use bot-only views to evaluate **spawn and patrol design** (are bots accidentally funneling humans into the same lanes?)
+  - Correlate **bot density** with **encounter rates**. Check if bot-heavy zones artificially inflate combat frequency or third-party fights.
+  - Run **A/B-style analysis** (bot density vs human routing). If possible, compare matches with varying bot presence to see how much bots actually influence rotations.
+  - Use bots intentionally as design levers (controlled manner).Instead of letting bots distort data, place them deliberately to guide players into underutilized areas.
 - **Expected metric impact**:
   - Better decisions on **AI placement** and **patrol lanes**
-  - More accurate iteration on **human flow** (reduced false positives from bot paths)
+  - More accurate interpretation of **player behaviour** (reduced false positives from bot paths)
   - Potential changes in **encounter rate** and perceived fairness
+  - Reduced **misleading signals** in heatmaps (fewer false conclusions about player flow)
+  - Better control over early vs mid-game **combat density**.
+  - Potential improvement in perceived **map liveliness**.
+  - More balanced region-wise encounter distribution. 
 
 ### Why a Level Designer should care
-Bots are part of the ecosystem. If their movement meaningfully contributes to “traffic,” then layout changes based on blended heatmaps can accidentally optimize for AI, not for real players.
+Bots can make up a large share of movement data. If they aren’t separated, heatmaps can reflect AI behavior instead of real player choices, leading to layout changes that optimize for bots rather than actual players.
 
 ---
 
