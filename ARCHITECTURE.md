@@ -30,18 +30,13 @@ A **Streamlit** web app (`app.py`) that lets Level Designers explore LILA BLACK 
    - Playback slider filters rows where `t_ms <= slider_time`
 
 ## Coordinate mapping (the tricky part)
-For a world coordinate \((x,z)\), per map config:
-- \(u = (x - origin_x) / scale\)
-- \(v = (z - origin_z) / scale\)
-- \(pixel_x = u \cdot 1024\)
-- \(pixel_y = (1 - v) \cdot 1024\)  (flip because images are top-left origin)
+Telemetry provides positions in world coordinates (x,z), while the UI requires pixel positions on a 1024×1024 minimap.
+
+Each map defines an origin and scale to convert world coordinates into pixel space. The Y-axis is flipped to match the top-left origin used by images.
 
 Implementation lives in `lila_viz/mapping.py` (`MapConfig.world_to_pixel`).
 
-**Assumptions / handling ambiguities**
-- `y` is elevation, ignored for 2D minimap plotting (per README).
-- Some events can land slightly out of bounds due to telemetry noise; heatmaps clamp to `[0,1024]`.
-- Humans vs bots: `user_id.isdigit()` is bot; UUID-like strings are humans (per README).
+Normalized using origin and scale, then map to pixel space and flip Y to match the image coordinate system.
 
 
 
