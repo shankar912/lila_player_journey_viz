@@ -116,17 +116,14 @@ def main() -> None:
 
     with c2:
         st.subheader("Match summary (filtered by playaback time)")
+        
         cur = match_df[
-    (match_df["t_ms"] <= t_ms) &
-    (match_df["user_id"].notna()) &
-    (match_df["user_id"] != "")
-]
+              (match_df["t_ms"] <= t_ms) &
+             (match_df["user_id"].notna()) &
+             (match_df["user_id"] != "")
+        ]
         st.write(cur[["user_id", "event"]].head(50))
-        cur = match_df[
-    (match_df["t_ms"] <= t_ms) &
-    (match_df["user_id"].notna()) &
-    (match_df["user_id"] != "")
-]
+           cur = match_df[match_df["t_ms"] <= t_ms]
 
      # Humans = actual tracked players
     human_players = cur[
