@@ -43,12 +43,6 @@ Implementation lives in `lila_viz/mapping.py` (`MapConfig.world_to_pixel`).
 - Some events can land slightly out of bounds due to telemetry noise; heatmaps clamp to `[0,1024]`.
 - Humans vs bots: `user_id.isdigit()` is bot; UUID-like strings are humans (per README).
 
-## Major trade-offs
-| Consideration | Option A | Option B | Decision |
-|---|---|---|---|
-| Multi-file querying | DuckDB SQL over whole dataset | Load only selected match/day | **Load selected match** for responsiveness; add day-level analysis in scripts. |
-| Heatmaps | Datashader | NumPy 2D histogram | **NumPy histogram**: simpler + good enough at this scale. |
-| Playback | Full animation | Time slider (progressive reveal) | **Time slider**: reliable in Streamlit and easy to reason about. |
 
 
 
