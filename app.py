@@ -115,10 +115,15 @@ def main() -> None:
         st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
     with c2:
-        st.subheader("Match summary (up to current time)")
+        st.subheader("Match summary (filtered by playaback time)")
         cur = match_df[match_df["t_ms"] <= t_ms]
-        humans = cur[~cur["user_id"].astype(str).str.isdigit()]
-        bots = cur[cur["user_id"].astype(str).str.isdigit()]
+        st.write(cur[["user_id", "event"]].head(50))
+        bot_events = ["BotKill", "BotKilled"]
+
+        bot_ids = cur[cur["event"].isin(bot_events)]["user_id"].unique()
+
+        bots = cur[cur["user_id"].isin(bot_ids)]
+        humans = cur[~cur["user_id"].isin(bot_ids)]
 
         def count(ev: str) -> int:
             return int((cur["event"] == ev).sum())
