@@ -37,7 +37,8 @@ def main() -> None:
     st.title("LILA BLACK — Player Journey Visualization")
     st.caption("Filters + playback + heatmaps for movement and combat telemetry.")
 
-    data_dir = get_data_dir()
+    import os
+    data_dir = Path(os.getenv("LILA_PLAYER_DATA_DIR", "data"))
     if not data_dir.exists():
         st.error(f"Data directory not found: `{data_dir}`")
         st.stop()
