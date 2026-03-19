@@ -50,8 +50,5 @@ Implementation lives in `lila_viz/mapping.py` (`MapConfig.world_to_pixel`).
 | Heatmaps | Datashader | NumPy 2D histogram | **NumPy histogram**: simpler + good enough at this scale. |
 | Playback | Full animation | Time slider (progressive reveal) | **Time slider**: reliable in Streamlit and easy to reason about. |
 
-## If I had more time
-- Add “**scope**” selector for heatmaps (match vs day vs all days) using DuckDB to aggregate quickly.
-- Add extraction-related events once available (to measure “successful extractions” and routes).
-- Add designer annotations (pin + note) to mark problematic areas and share links.
+
 
