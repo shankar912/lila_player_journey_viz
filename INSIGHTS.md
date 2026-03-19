@@ -67,9 +67,9 @@ Bots can make up a large share of movement data. If they aren’t separated, hea
 
 ---
 
-## Insight 3 — Storm is not a major killer (only ~5% of deaths), so it may not be driving rotations strongly
-### What caught my eye
-Even though the storm is described as a major pacing driver, relatively few deaths are attributed to it in telemetry.
+## Insight 3 — Storm has low lethality (~5% of deaths), so it may not strongly influence player movement
+### What stood out
+Storm has low lethality (~5% of deaths), so it may not strongly influence player movement
 
 ### Evidence (pattern / stat)
 Across the entire dataset:
@@ -78,13 +78,21 @@ Across the entire dataset:
 - **Storm share of deaths**: **5.3%**
 
 ### Actionable? What to do + what metrics it affects
-- **Action** (pick based on intended experience):
-  - If storm should strongly shape flow: increase consequence/pressure (damage, speed, visibility), add clearer telegraphing, or tighten extraction timing.
-  - If storm is meant to be “soft guidance”: keep lethality low but ensure it still **re-routes** players (measure through rotation changes, not deaths).
+- **Action** :
+  - If the storm should strongly shape movement: increase pressure (damage, speed, visibility) or tighten timing to force rotations.
+  - If the storm is meant to be soft guidance: keep lethality low, but ensure it still influences rotations (validate via movement patterns, not deaths).
+  - Add environmental friction in storm zones. Movement slowdowns, reduced visibility, or terrain penalties so being in the storm feels bad even without killing players.
+  - Make storm pressure uneven (directional bias).Instead of uniform shrink, bias the storm so certain regions become temporarily unsafe, forcing varied rotations instead of                    predictable paths.
+  - Introduce “safe-but-costly” rotations. Add longer but safer routes vs shorter high-risk ones, so players make trade-offs instead of always optimizing the same lane.
+  - Measure “storm compliance rate. Percentage or amount of players who rotate before taking damage vs those who tank the storm. This tells you if the storm is respected or ignored.
+    
 - **Expected metric impact**:
-  - **Storm deaths** may increase (if intended) and **late-match clustering** may reduce
-  - **Rotation diversity** can increase if storm meaningfully dislodges entrenched lanes
+  - Increased storm-driven rotations without spike in deaths.
+  - Potential rise in storm deaths (if pressure is increased).
+  - Reduced late-game clustering (if players are forced to move earlier).
+  - Higher rotation diversity if storm meaningfully disrupts fixed paths(less repeated paths).
+  - Clear visibility into player response behavior (early vs late movers).
 
-### Why a Level Designer should care
-Storm tuning is a lever for pacing and map flow. If it isn’t meaningfully affecting outcomes, you may be leaving pacing and map utilization to emergent player habits (which often concentrate into a few optimal routes).
+### Why this matters for Level Design
+The storm is one of the main tools for controlling pacing and player movement. If it isn’t having a noticeable impact, rotations are driven mostly by player habits, which tend to converge into a few predictable routes and leave large parts of the map underused.
 
