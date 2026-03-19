@@ -116,12 +116,23 @@ def main() -> None:
 
     with c2:
         st.subheader("Match summary (filtered by playaback time)")
-        cur = match_df[match_df["t_ms"] <= t_ms]
+        cur = match_df[
+    (match_df["t_ms"] <= t_ms) &
+    (match_df["user_id"].notna()) &
+    (match_df["user_id"] != "")
+]
         st.write(cur[["user_id", "event"]].head(50))
-        cur = match_df[match_df["t_ms"] <= t_ms]
+        cur = match_df[
+    (match_df["t_ms"] <= t_ms) &
+    (match_df["user_id"].notna()) &
+    (match_df["user_id"] != "")
+]
 
      # Humans = actual tracked players
-     human_players = cur["user_id"].nunique()
+    human_players = cur[
+             cur["user_id"].notna() & (cur["user_id"] != "")
+   ]["user_id"].nunique()
+
 
     # Bots are not tracked as players → only via events
     bot_kills = int((cur["event"] == "BotKill").sum())
