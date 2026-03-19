@@ -118,18 +118,22 @@ def main() -> None:
         st.subheader("Match summary (filtered by playaback time)")
         cur = match_df[match_df["t_ms"] <= t_ms]
         st.write(cur[["user_id", "event"]].head(50))
-        bot_events = ["BotKill", "BotKilled"]
+        cur = match_df[match_df["t_ms"] <= t_ms]
 
-        bot_ids = cur[cur["event"].isin(bot_events)]["user_id"].unique()
+     # Humans = actual tracked players
+     human_players = cur["user_id"].nunique()
 
-        bots = cur[cur["user_id"].isin(bot_ids)]
-        humans = cur[~cur["user_id"].isin(bot_ids)]
+    # Bots are not tracked as players → only via events
+    bot_kills = int((cur["event"] == "BotKill").sum())
+
+   # Set bot players to 0 (honest representation)
+   bot_players = 0
 
         def count(ev: str) -> int:
             return int((cur["event"] == ev).sum())
 
-        st.metric("Players (humans)", int(humans["user_id"].nunique()))
-        st.metric("Players (bots)", int(bots["user_id"].nunique()))
+        st.metric("Players (humans)", int(human_players))
+        st.metric("Players (bots)", int(bot_players))
         st.metric("Kills (human→human)", count("Kill"))
         st.metric("Deaths (human killed)", count("Killed"))
         st.metric("Bot kills (human→bot)", count("BotKill"))
