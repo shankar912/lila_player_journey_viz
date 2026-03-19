@@ -115,43 +115,31 @@ def main() -> None:
         st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
     with c2:
-        st.subheader("Match summary (filtered by playaback time)")
-        
-        cur = match_df[
-              (match_df["t_ms"] <= t_ms) &
-             (match_df["user_id"].notna()) &
-             (match_df["user_id"] != "")
-        ]
-        st.write(cur[["user_id", "event"]].head(50))
-           cur = match_df[match_df["t_ms"] <= t_ms]
+        st.subheader("Match summary (filtered by playback time)")
 
-     # Humans = actual tracked players
-    human_players = cur[
-             cur["user_id"].notna() & (cur["user_id"] != "")
-   ]["user_id"].nunique()
+    cur = match_df[
+        (match_df["t_ms"] <= t_ms) &
+        (match_df["user_id"].notna()) &
+        (match_df["user_id"] != "")
+    ]
 
+    human_players = cur["user_id"].nunique()
+    bot_players = 0
 
-    # Bots are not tracked as players → only via events
-    bot_kills = int((cur["event"] == "BotKill").sum())
+    def count(ev: str) -> int:
+        return int((cur["event"] == ev).sum())
 
-   # Set bot players to 0 (honest representation)
-   bot_players = 0
+    st.metric("Players (humans)", int(human_players))
+    st.metric("Players (bots)", int(bot_players))
+    st.metric("Kills (human→human)", count("Kill"))
+    st.metric("Deaths (human killed)", count("Killed"))
+    st.metric("Bot kills (human→bot)", count("BotKill"))
+    st.metric("Deaths to bots (human)", count("BotKilled"))
+    st.metric("Storm deaths", count("KilledByStorm"))
+    st.metric("Loot pickups", count("Loot"))
 
-        def count(ev: str) -> int:
-            return int((cur["event"] == ev).sum())
-
-        st.metric("Players (humans)", int(human_players))
-        st.metric("Players (bots)", int(bot_players))
-        st.metric("Kills (human→human)", count("Kill"))
-        st.metric("Deaths (human killed)", count("Killed"))
-        st.metric("Bot kills (human→bot)", count("BotKill"))
-        st.metric("Deaths to bots (human)", count("BotKilled"))
-        st.metric("Storm deaths", count("KilledByStorm"))
-        st.metric("Loot pickups", count("Loot"))
-
-        st.divider()
-        st.caption("Tip: reduce playback time to see early-game rotations and first-contact zones.")
-
+    st.divider()
+    st.caption("Tip: reduce playback time to see early-game rotations and first-contact zones.")
 
 if __name__ == "__main__":
     main()
